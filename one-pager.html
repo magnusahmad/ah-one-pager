@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Harbor — One Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #111113;
+    --surface-high: #18181b;
+    --surface-low: #0e0e10;
+    --border: #1e1e22;
+    --border-accent: #2a2a30;
+    --text: #ececef;
+    --text-secondary: #c0c0c8;
+    --text-tertiary: #8c8c99;
+    --text-dim: #55555f;
+    --primary: #5ca0d3;
+    --primary-bg: rgba(92, 160, 211, 0.08);
+    --primary-border: rgba(92, 160, 211, 0.18);
+    --green: #34d399;
+    --green-bg: rgba(52, 211, 153, 0.08);
+    --amber: #fbbf24;
+    --amber-bg: rgba(251, 191, 36, 0.08);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.07);
+    --mono: 'Geist Mono', monospace;
+    --sans: 'Inter', -apple-system, system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  /* ---- Nav ---- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(9, 9, 11, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 50;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    overflow: hidden;
+  }
+
+  .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+
+  .nav-right {
+    display: flex; gap: 20px; align-items: center;
+  }
+
+  .nav-right a {
+    font-size: 13px; color: var(--text-tertiary);
+    text-decoration: none; transition: color 0.15s;
+  }
+
+  .nav-right a:hover { color: var(--text); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    padding: 7px 16px; border-radius: 6px; text-decoration: none;
+    border: none; cursor: pointer; transition: all 0.15s;
+  }
+
+  .btn-primary { background: var(--text); color: var(--bg); }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-ghost { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--border-accent); }
+
+  /* ---- Layout ---- */
+  .container { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---- Hero ---- */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero .kicker {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .hero .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    line-height: 1.65;
+  }
+
+  /* ---- Sections ---- */
+  section { padding: 56px 0; }
+  section + section { border-top: 1px solid var(--border); }
+
+  .section-kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+
+  /* ---- Problem Cards ---- */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+
+  .problem-card .card-number {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .problem-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .problem-card p {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+  }
+
+  .problem-card .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+
+  .tag-lock { background: var(--red-bg); color: var(--red); }
+  .tag-cost { background: var(--amber-bg); color: var(--amber); }
+  .tag-frag { background: var(--primary-bg); color: var(--primary); }
+
+  /* ---- Solution block ---- */
+  .solution-block {
+    background: var(--surface);
+    border: 1px solid var(--primary-border);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .solution-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  }
+
+  .solution-block h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+  }
+
+  .solution-block p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* ---- Stakeholder grid ---- */
+  .stakeholder-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .stakeholder {
+    background: var(--surface-low);
+    padding: 20px;
+  }
+
+  .stakeholder .role {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .stakeholder .benefit {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ---- Use Case Timeline ---- */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .tl-step {
+    position: relative;
+    padding-bottom: 32px;
+    cursor: pointer;
+  }
+
+  .tl-step:last-child { padding-bottom: 0; }
+
+  .tl-dot {
+    position: absolute;
+    left: -40px; top: 4px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    transition: all 0.25s;
+    z-index: 2;
+  }
+
+  .tl-step.active .tl-dot {
+    border-color: var(--primary);
+    background: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-bg);
+  }
+
+  .tl-step.done .tl-dot {
+    border-color: var(--green);
+    background: var(--green);
+  }
+
+  .tl-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .tl-header h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+
+  .tl-step:not(.active):not(.done) .tl-header h4 {
+    color: var(--text-tertiary);
+  }
+
+  .tl-header .tl-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .tl-body {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s;
+    opacity: 0;
+  }
+
+  .tl-step.active .tl-body {
+    max-height: 200px;
+    opacity: 1;
+  }
+
+  .tl-detail-panel {
+    margin-top: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .tl-detail-panel .dp-label {
+    color: var(--primary);
+    font-weight: 500;
+  }
+
+  .tl-detail-panel .dp-dim {
+    color: var(--text-dim);
+  }
+
+  /* ---- Capability buckets ---- */
+  .cap-buckets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .cap-buckets { grid-template-columns: 1fr; }
+  }
+
+  .cap-bucket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .cap-bucket-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cap-bucket-icon {
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+
+  .cap-bucket-icon.agents { background: var(--primary-bg); border: 1px solid var(--primary-border); }
+  .cap-bucket-icon.govern { background: var(--green-bg); border: 1px solid rgba(52,211,153,0.18); }
+
+  .cap-bucket-header h4 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .cap-bucket-header .bucket-sub {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+    margin-left: auto;
+    font-family: var(--mono);
+  }
+
+  .cap-list {
+    padding: 6px 8px;
+  }
+
+  .cap-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 7px;
+    transition: background 0.15s;
+  }
+
+  .cap-row:hover { background: var(--surface-high); }
+
+  .cap-row .cap-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .cap-row .cap-dot.agents { background: var(--primary); }
+  .cap-row .cap-dot.govern { background: var(--green); }
+
+  .cap-row h5 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 1px;
+  }
+
+  .cap-row p {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+
+  /* ---- Compat bar ---- */
+  .compat-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .compat-bar .compat-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .compat-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    padding: 5px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  /* ---- Footer CTA ---- */
+  .footer-cta {
+    padding: 56px 0 72px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-cta h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.015em;
+  }
+
+  .footer-cta p {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin-bottom: 24px;
+  }
+
+  .footer-cta .btn-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  /* ---- Animations ---- */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 700px) {
+    nav { padding: 12px 16px; }
+    .container { padding: 0 16px; }
+    .hero { padding: 48px 0 40px; }
+    section { padding: 40px 0; }
+    .stakeholder-grid { grid-template-columns: 1fr; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .footer-cta .btn-row { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://agent-harbor.com" class="logo">
+    <div class="logo-mark"><img src="logo.png" alt="AH"></div>
+    Agent Harbor
+  </a>
+  <div class="nav-right">
+    <a href="https://agent-harbor.com">Home</a>
+    <a href="https://docs.agent-harbor.com">Docs</a>
+    <a href="https://agent-harbor.com" class="btn btn-primary">Request Access</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ===== HERO ===== -->
+  <div class="hero fade-up">
+    <div class="kicker">For engineering leaders</div>
+    <h1>One orchestration layer for all your team's coding agents</h1>
+    <p class="subtitle">Agent Harbor lets your team keep using whatever AI coding subscriptions they already have. Claude Code, Codex, Amp, OpenCode. Administrators gain a single interface for monitoring, cost management, and governance. No vendor lock-in. No overpriced tokens.</p>
+  </div>
+
+  <!-- ===== THE PROBLEM ===== -->
+  <section>
+    <div class="section-kicker fade-up">The problem</div>
+    <h2 class="section-title fade-up delay-1">Adopting agentic engineering today forces a tradeoff</h2>
+    <p class="section-desc fade-up delay-2">Teams standardizing on AI coding agents face three options, each with meaningful downsides.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card fade-up delay-1">
+        <div class="card-number">Option 01</div>
+        <h4>Standardize on one lab subscription</h4>
+        <p>Pick Claude Code or Codex for the whole team. But some developers prefer different models or harnesses, and you're exposed to unilateral pricing changes — like a flat subscription becoming metered overnight.</p>
+        <span class="tag tag-lock">Vendor lock-in</span>
+      </div>
+
+      <div class="problem-card fade-up delay-2">
+        <h4>Go with a specialized platform</h4>
+        <div class="card-number">Option 02</div>
+        <p>Tools like Factory.ai and Warp.dev add hosting and multi-model support. But they cost 5–10× more than lab subs because you lose access to subsidized pricing, and you're still locked into a proprietary harness.</p>
+        <span class="tag tag-cost">5–10× premium</span>
+      </div>
+
+      <div class="problem-card fade-up delay-3">
+        <h4>Let everyone use their own tools</h4>
+        <div class="card-number">Option 03</div>
+        <p>Developers are happy, but each person ends up with multiple subscriptions across different providers — each with its own billing, IAM, and usage tracking. A management and observability nightmare.</p>
+        <span class="tag tag-frag">Fragmented visibility</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE SOLUTION ===== -->
+  <section>
+    <div class="section-kicker">The solution</div>
+    <h2 class="section-title">Agent Harbor: BYO subscription, unified control</h2>
+    <p class="section-desc">Agent Harbor sits on top of the subscriptions your team already pays for. It doesn't sell you tokens — it orchestrates the ones you have.</p>
+
+    <div class="solution-block">
+      <h3>How it works</h3>
+      <p>Developers plug in their existing AI subscriptions — company plans or personal. Agent Harbor uses their inference while adding long-horizon execution, advanced sandboxing, and fleet management on top. If an agent maxes out one plan mid-task, Agent Harbor can hot-swap to the next available subscription and continue without losing context.</p>
+
+      <div class="stakeholder-grid">
+        <div class="stakeholder">
+          <div class="role">Managers - peace of mind</div>
+          <div class="benefit">Single dashboard to monitor and audit all agent subscriptions across the org. Visibility on who's using what, how much, and what for.</div>
+        </div>
+        <div class="stakeholder">
+          <div class="role">Developers - flexibility</div>
+          <div class="benefit">Keep using whatever subscriptions and harnesses they prefer. Claude Code, Codex, Amp, or any combination. No mandated tools.</div>
+        </div>
+        <div class="stakeholder">
+          <div class="role">Admins - Pricing transparency</div>
+          <div class="benefit">Agent Harbor charges a flat fee per user. No markup on tokens. Teams use their existing AI subscriptions, keeping costs predictable.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== USE CASE ===== -->
+  <section>
+    <div class="section-kicker">Use case</div>
+    <h2 class="section-title">Long-running autonomous bug detection and remediation</h2>
+    <p class="section-desc">A real workflow showing how Agent Harbor's capabilities work together for a multi-day, multi-agent engineering task.</p>
+
+    <div class="timeline" id="timeline">
+
+      <div class="tl-step active" data-step="0" onclick="setStep(0)">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <h4>1. Trigger from Slack or Telegram</h4>
+          <span class="tl-tag" style="background:var(--primary-bg);color:var(--primary)">Initiate</span>
+        </div>
+        <div class="tl-body">
+          <p>An admin sends a message to the team's Agent Harbor bot: "Check the v2.4 release for bugs on macOS and Windows." Agent Harbor spawns a computer-use agent with full browser and OS interaction capabilities in a sandboxed environment.</p>
+          <div class="tl-detail-panel">
+            <span class="dp-label">harbor spawn</span> --mode=computer-use --target=v2.4<br>
+            <span class="dp-dim">→ sandbox "harbor-2847" created (CoW, 14ms boot)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step" data-step="1" onclick="setStep(1)">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <h4>2. Continuous exploratory testing</h4>
+          <span class="tl-tag" style="background:var(--green-bg);color:var(--green)">Running</span>
+        </div>
+        <div class="tl-body">
+          <p>The explorer agent runs for days, systematically testing edge cases in the release. The anti-halting harness detects stuck states, recovers context, and keeps the agent moving forward. Findings are filed as structured reports.</p>
+          <div class="tl-detail-panel">
+            <span class="dp-label">Agent uptime:</span> 72h 14m<br>
+            <span class="dp-label">Stall recoveries:</span> 3<br>
+            <span class="dp-label">Bugs filed:</span> 7<br>
+            <span class="dp-dim">→ Anti-halting harness active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step" data-step="2" onclick="setStep(2)">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <h4>3. Implementer agent picks up fixes</h4>
+          <span class="tl-tag" style="background:var(--amber-bg);color:var(--amber)">Delegate</span>
+        </div>
+        <div class="tl-body">
+          <p>Bug reports are delegated to a separate implementer agent with full codebase context. It begins working on fixes autonomously, proposing PRs with patches verified against the isolated sandbox environment.</p>
+          <div class="tl-detail-panel">
+            <span class="dp-label">Leader:</span> explorer-agent → <span class="dp-label">Follower:</span> impl-agent-01<br>
+            <span class="dp-dim">→ Full codebase context passed via leader-follower orchestration</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step" data-step="3" onclick="setStep(3)">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <h4>4. Multi-OS validation</h4>
+          <span class="tl-tag" style="background:var(--primary-bg);color:var(--primary)">Verify</span>
+        </div>
+        <div class="tl-body">
+          <p>Each fix is tested simultaneously on Windows, macOS, and Linux using Agent Harbor's copy-on-write filesystem. Agents can even run on the same machine, sharing the same ports without conflicts — each in its own isolated copy-on-write sandbox.</p>
+          <div class="tl-detail-panel">
+            <span class="dp-label">Sandboxes:</span> 3 (win / mac / linux)<br>
+            <span class="dp-label">Disk overhead:</span> &lt;50 MB (CoW)<br>
+            <span class="dp-label">Port conflicts:</span> 0<br>
+            <span class="dp-dim">→ All running on one host machine</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-step" data-step="4" onclick="setStep(4)">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <h4>5. Credential hot-swap keeps work going</h4>
+          <span class="tl-tag" style="background:var(--green-bg);color:var(--green)">Resilient</span>
+        </div>
+        <div class="tl-body">
+          <p>When the long-running explorer agent maxes out its Claude subscription mid-task, Credential Manager hot-swaps to the user's next available plan with no interruption.</p>
+          <div class="tl-detail-panel">
+            <span class="dp-label">claude-max-plan:</span> <span style="color:var(--red)">exhausted</span><br>
+            <span class="dp-label">hot-swap →</span> codex-team-plan<br>
+            <span class="dp-dim">→ Context preserved, task continued seamlessly</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== KEY CAPABILITIES ===== -->
+  <section>
+    <div class="section-kicker">Key capabilities</div>
+    <h2 class="section-title">What Agent Harbor provides</h2>
+    <p class="section-desc">Two pillars: robust infrastructure for long-running autonomous agents, and the governance layer teams need to manage them at scale.</p>
+
+    <div class="cap-buckets">
+
+      <div class="cap-bucket">
+        <div class="cap-bucket-header">
+          <div class="cap-bucket-icon agents">⊡</div>
+          <h4>Long-Running Agents</h4>
+        </div>
+        <div class="cap-list">
+          <div class="cap-row">
+            <div class="cap-dot agents"></div>
+            <div>
+              <h5>Anti-Halting Harness</h5>
+              <p>Agents run for hours or days. Automatic stall detection, context recovery, and graceful degradation.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot agents"></div>
+            <div>
+              <h5>Copy-on-Write Sandboxing</h5>
+              <p>Isolated environments on Windows, macOS, and Linux. 10× faster boot than git worktrees, >100× less disk.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot agents"></div>
+            <div>
+              <h5>Work Delegation</h5>
+              <p>Dispatch to local machines, your own cluster, or Agent Harbor's managed instances.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot agents"></div>
+            <div>
+              <h5>Multi-OS Validation</h5>
+              <p>Leader-follower orchestration tests patches across platforms simultaneously on one host.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot agents"></div>
+            <div>
+              <h5>Credential Management</h5>
+              <p>Centralized vault with hot-swap. If one subscription maxes out, the next picks up automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cap-bucket">
+        <div class="cap-bucket-header">
+          <div class="cap-bucket-icon govern">◈</div>
+          <h4>Team &amp; Governance</h4>
+        </div>
+        <div class="cap-list">
+          <div class="cap-row">
+            <div class="cap-dot govern"></div>
+            <div>
+              <h5>Fleet Management</h5>
+              <p>Single dashboard for all agent activity across every subscription. Task routing, telemetry, and resource controls.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot govern"></div>
+            <div>
+              <h5>User Monitoring</h5>
+              <p>Track who's using what, how much, and when — across Claude, Codex, Amp, and any other plugged-in sub.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot govern"></div>
+            <div>
+              <h5>Audit Trail &amp; Session Recording</h5>
+              <p>Full session replay and reproducible builds. Every agent action is tracked and verifiable.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot govern"></div>
+            <div>
+              <h5>SCIM &amp; Identity Management</h5>
+              <p>Integrate with your existing identity provider. Automated provisioning and de-provisioning of agent access.</p>
+            </div>
+          </div>
+          <div class="cap-row">
+            <div class="cap-dot govern"></div>
+            <div>
+              <h5>Premium Support</h5>
+              <p>Dedicated onboarding, SLA-backed response times, and direct access to the engineering team.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="compat-bar">
+      <span class="compat-label">Compatible with:</span>
+      <span class="compat-chip">Claude Code</span>
+      <span class="compat-chip">Codex</span>
+      <span class="compat-chip">OpenCode</span>
+      <span class="compat-chip">Amp</span>
+      <span class="compat-chip">Cursor Agent</span>
+      <span class="compat-chip">Copilot</span>
+      <span class="compat-chip">Gemini</span>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <div class="footer-cta">
+    <h3>Ready to unify your team's agent stack?</h3>
+    <p>Agent Harbor is in early access. We're onboarding engineering teams now.</p>
+    <div class="btn-row">
+      <a href="https://agent-harbor.com" class="btn btn-primary">Request Early Access</a>
+      <a href="https://agent-harbor.com/comparison" class="btn btn-ghost">View Full Comparison</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-bottom">
+  <div class="container">© 2026 Agent Harbor. All rights reserved.</div>
+</div>
+
+<script>
+  // Timeline interaction
+  function setStep(index) {
+    const steps = document.querySelectorAll('.tl-step');
+    steps.forEach((step, i) => {
+      step.classList.remove('active', 'done');
+      if (i < index) step.classList.add('done');
+      if (i === index) step.classList.add('active');
+    });
+  }
+
+  // Auto-advance timeline
+  let autoTimer;
+  let currentAuto = 0;
+  const STEP_COUNT = 5;
+
+  function startAutoAdvance() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      currentAuto = (currentAuto + 1) % STEP_COUNT;
+      setStep(currentAuto);
+    }, 5000);
+  }
+
+  // Pause auto on user interaction, resume after delay
+  document.getElementById('timeline').addEventListener('click', (e) => {
+    const step = e.target.closest('.tl-step');
+    if (step) {
+      currentAuto = parseInt(step.dataset.step);
+      clearInterval(autoTimer);
+      setTimeout(startAutoAdvance, 15000);
+    }
+  });
+
+  // Intersection observer to start auto-advance when visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startAutoAdvance();
+      } else {
+        clearInterval(autoTimer);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(document.getElementById('timeline'));
+
+  // Scroll-triggered fade-ups
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    fadeObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
