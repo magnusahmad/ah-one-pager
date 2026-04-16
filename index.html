@@ -600,6 +600,7 @@
         <div class="card-number">Option 02</div>
         <h4>Go with a specialized platform</h4>
         <p>Tools like Factory.ai and Warp.dev add hosting and multi-model support. But they cost 5–10× more than lab subs because you lose access to subsidized pricing, and you're still locked into a proprietary harness.</p>
+        <br>
         <span class="tag tag-cost">5–10× premium</span>
       </div>
 
@@ -654,9 +655,9 @@
           <span class="tl-tag" style="background:var(--primary-bg);color:var(--primary)">Initiate</span>
         </div>
         <div class="tl-body">
-          <p>An admin sends a message to the team's Agent Harbor bot: "Check the v2.4 release for bugs on macOS and Windows." Agent Harbor spawns a computer-use agent with full browser and OS interaction capabilities in a sandboxed environment.</p>
+          <p>A team member pings the Agent Harbor bot: "Check the v2.4 release for bugs on macOS and Windows." Agent Harbor spawns a <b>computer-use agent</b> with full browser and OS interaction capabilities in a <b>sandboxed environment</b>.</p>
           <div class="tl-detail-panel">
-            <span class="dp-label">harbor spawn</span> --mode=computer-use --target=v2.4<br>
+            <span class="dp-label">ah desktop</span> --executor macos-build-01<br>
             <span class="dp-dim">→ sandbox "harbor-2847" created (CoW, 14ms boot)</span>
           </div>
         </div>
@@ -669,7 +670,7 @@
           <span class="tl-tag" style="background:var(--green-bg);color:var(--green)">Running</span>
         </div>
         <div class="tl-body">
-          <p>The explorer agent runs for days, systematically testing edge cases in the release. The anti-halting harness detects stuck states, recovers context, and keeps the agent moving forward. Findings are filed as structured reports.</p>
+          <p>The explorer agent runs for days, systematically testing edge cases in the release. The <b>anti-halting harness</b> detects stuck states, recovers context, and keeps the agent moving forward. Findings are filed as structured reports.</p>
           <div class="tl-detail-panel">
             <span class="dp-label">Agent uptime:</span> 72h 14m<br>
             <span class="dp-label">Stall recoveries:</span> 3<br>
@@ -686,7 +687,7 @@
           <span class="tl-tag" style="background:var(--amber-bg);color:var(--amber)">Delegate</span>
         </div>
         <div class="tl-body">
-          <p>Bug reports are delegated to a separate implementer agent with full codebase context. It begins working on fixes autonomously, proposing PRs with patches verified against the isolated sandbox environment.</p>
+          <p>Bug reports are delegated to a separate <b>implementer agent</b> with full codebase context. It begins working on fixes autonomously, proposing PRs with patches verified against the isolated sandbox environment.</p>
           <div class="tl-detail-panel">
             <span class="dp-label">Leader:</span> explorer-agent → <span class="dp-label">Follower:</span> impl-agent-01<br>
             <span class="dp-dim">→ Full codebase context passed via leader-follower orchestration</span>
@@ -701,12 +702,12 @@
           <span class="tl-tag" style="background:var(--primary-bg);color:var(--primary)">Verify</span>
         </div>
         <div class="tl-body">
-          <p>Each fix is tested simultaneously on Windows, macOS, and Linux using Agent Harbor's copy-on-write filesystem. Agents can even run on the same machine, sharing the same ports without conflicts — each in its own isolated copy-on-write sandbox.</p>
+          <p>Each fix is tested sequentially on Linux, Windows and MacOS. Propagation of file updates from leader agents to followers via <b>Mutagen high-speed file sync</b>.</p>
           <div class="tl-detail-panel">
-            <span class="dp-label">Sandboxes:</span> 3 (win / mac / linux)<br>
+            <span class="dp-label">Fleet size:</span> 3 instances (win / mac / linux)<br>
             <span class="dp-label">Disk overhead:</span> &lt;50 MB (CoW)<br>
-            <span class="dp-label">Port conflicts:</span> 0<br>
-            <span class="dp-dim">→ All running on one host machine</span>
+            <span class="dp-label">FS snapshots:</span> Copy-on-Write<br>
+            <span class="dp-dim">→ Bug fixes get propagated through the fleet for validation</span>
           </div>
         </div>
       </div>
@@ -718,7 +719,7 @@
           <span class="tl-tag" style="background:var(--green-bg);color:var(--green)">Resilient</span>
         </div>
         <div class="tl-body">
-          <p>When the long-running explorer agent maxes out its Claude subscription mid-task, Credential Manager hot-swaps to the user's next available plan with no interruption.</p>
+          <p>When the long-running explorer agent maxes out its Claude subscription mid-task, <b>Credential Manager</b> hot-swaps to the user's next available plan without interruption.</p>
           <div class="tl-detail-panel">
             <span class="dp-label">claude-max-plan:</span> <span style="color:var(--red)">exhausted</span><br>
             <span class="dp-label">hot-swap →</span> codex-team-plan<br>
@@ -769,14 +770,14 @@
             <div class="cap-dot agents"></div>
             <div>
               <h5>Multi-OS Validation</h5>
-              <p>Leader-follower orchestration tests patches across platforms simultaneously on one host.</p>
+              <p>Leader-follower orchestration tests patches across platforms sequentially.</p>
             </div>
           </div>
           <div class="cap-row">
             <div class="cap-dot agents"></div>
             <div>
-              <h5>Credential Management</h5>
-              <p>Centralized vault with hot-swap. If one subscription maxes out, the next picks up automatically.</p>
+              <h5>Credential Manager</h5>
+              <p>If one subscription maxes out, the next picks up automatically.</p>
             </div>
           </div>
         </div>
